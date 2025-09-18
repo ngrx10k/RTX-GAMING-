@@ -1,0 +1,141 @@
+:root {
+  --bg: #070a0f;
+  --bg-grad-1: #070a0f;
+  --bg-grad-2: #0b1220;
+  --primary: #00f7ff;
+  --primary-2: #8a2be2;
+  --text: #d1f7ff;
+  --muted: #7aa7b4;
+  --glow: 0 0 12px rgba(0, 247, 255, 0.6), 0 0 32px rgba(0, 247, 255, 0.35);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(138,43,226,0.08), transparent),
+              radial-gradient(1000px 600px at 80% 90%, rgba(0,247,255,0.08), transparent),
+              linear-gradient(180deg, var(--bg-grad-1), var(--bg-grad-2));
+  color: var(--text);
+  font-family: 'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.brand {
+  margin: 0 0 0.5rem 0;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 7vw, 5.2rem);
+  letter-spacing: 0.06em;
+}
+
+.glitch {
+  position: relative;
+  display: inline-block;
+  color: var(--primary);
+  text-shadow: 0 0 8px rgba(0,247,255,0.9), 0 0 20px rgba(0,247,255,0.4);
+  animation: neonPulse 3s ease-in-out infinite;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.glitch::before {
+  color: #ff2a6d;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 55%);
+  transform: translate(1px, -1px);
+  mix-blend-mode: screen;
+  animation: glitchTop 2.5s infinite linear alternate-reverse;
+}
+.glitch::after {
+  color: #6dfdff;
+  clip-path: polygon(0 60%, 100% 50%, 100% 100%, 0 100%);
+  transform: translate(-1px, 1px);
+  mix-blend-mode: screen;
+  animation: glitchBottom 2.2s infinite linear alternate-reverse;
+}
+
+@keyframes neonPulse {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(0,247,255,0.0)); }
+  50% { filter: drop-shadow(0 0 18px rgba(0,247,255,0.5)) drop-shadow(0 0 36px rgba(138,43,226,0.3)); }
+}
+@keyframes glitchTop {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(1px, -1px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes glitchBottom {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(1px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+.tagline {
+  margin: 0 0 1.6rem 0;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+}
+
+.cta-row { display: inline-flex; gap: 0.8rem; }
+.btn {
+  padding: 0.75rem 1.2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: transform 0.15s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #001317;
+  box-shadow: var(--glow);
+}
+.btn.primary:hover { transform: translateY(-2px) scale(1.02); }
+.btn.ghost {
+  border: 1px solid rgba(0,247,255,0.4);
+  color: var(--text);
+  background: rgba(0,0,0,0.2);
+}
+.btn.ghost:hover { box-shadow: 0 0 10px rgba(0,247,255,0.3); transform: translateY(-2px); }
+
+.footer { margin-top: 2rem; opacity: 0.7; font-size: 0.85rem; }
+
+/* starfield background */
+.stars { position: fixed; inset: -50vh -50vw; background: transparent; pointer-events: none; }
+.stars::before, .stars::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.6), transparent 50%),
+                    radial-gradient(1px 1px at 80px 120px, rgba(138,43,226,0.5), transparent 50%),
+                    radial-gradient(1px 1px at 200px 300px, rgba(0,247,255,0.7), transparent 50%),
+                    radial-gradient(1.5px 1.5px at 400px 500px, rgba(255,255,255,0.5), transparent 50%);
+  background-size: 600px 600px;
+  animation: drift 80s linear infinite;
+}
+.stars::after {
+  opacity: 0.6;
+  filter: blur(1px);
+  animation-duration: 120s;
+}
+@keyframes drift { to { transform: translate3d(-600px, -600px, 0); } }
+
+@media (max-width: 420px) {
+  .cta-row { flex-direction: column; }
+}
+
+

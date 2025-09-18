@@ -138,4 +138,34 @@ body {
   .cta-row { flex-direction: column; }
 }
 
+/* Entry animation state */
+body.entering {
+  animation: bgPulse 10s ease-in-out forwards;
+}
+@keyframes bgPulse {
+  0% { filter: none; }
+  20% { filter: brightness(1.2) saturate(1.2); }
+  50% { filter: brightness(1.4) saturate(1.4) blur(0.5px); }
+  80% { filter: brightness(1.2) saturate(1.2); }
+  100% { filter: none; }
+}
+
+.brand.split .char {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+/* Default idle letter sway after entry */
+.brand.idle .char { animation: idleSway 4s ease-in-out infinite; }
+@keyframes idleSway {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* Break apart and reattach sequence, 10s total orchestrated in JS via delays */
+.brand.animating .char {
+  animation: none;
+}
+
+
 
